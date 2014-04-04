@@ -22,3 +22,5 @@ set nofoldenable        "dont fold by default
 set foldlevel=1         "this is just what i use
 filetype on
 inoremap jj <Esc> 
+com! FormatJSON %!python -m json.tool
+nmap =j :%!python -m json.tool<CR>
