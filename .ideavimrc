@@ -18,7 +18,7 @@ set nomodeline
 set tabstop=4
 set shiftwidth=4
 set smarttab
-set relativenumber
+set surround
 autocmd Filetype gitcommit setlocal spell textwidth=72
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
@@ -40,37 +40,23 @@ filetype plugin indent on
 nnoremap H gT
 nnoremap L gt
 
+nnoremap <leader>d dd
+nnoremap <leader>a vip
+
+"Leader change line"
+nnoremap <leader>c mac'a
+
 call plug#begin()
-Plug 'preservim/nerdcommenter'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'scrooloose/nerdtree'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'scrooloose/nerdTree'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-surround'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'easymotion/vim-easymotion'
-Plug 'vim-airline/vim-airline'
 Plug 'michaeljsmith/vim-indent-object'
-Plug 'hashrocket/vim-macdown'
-Plug 'tpope/vim-fugitive'
 call plug#end()
-" Set of non default values for vim multiple cursors.
-
-let g:multi_cursor_use_default_mapping=0
-
-" Default mapping
-let g:multi_cursor_start_word_key      = '<C-m>'
-let g:multi_cursor_select_all_word_key = '<A-m>'
-let g:multi_cursor_start_key           = 'g<C-m>'
-let g:multi_cursor_select_all_key      = 'g<A-m>'
-let g:multi_cursor_next_key            = '<C-m>'
-let g:multi_cursor_prev_key            = '<C-,>'
-let g:multi_cursor_skip_key            = '<C-.>'
-let g:multi_cursor_quit_key            = '<Esc>'
-
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 nmap <C-n> :NERDTreeToggle<CR>
-map <Leader> <Plug>(easymotion-prefix)
 augroup vimrcEx
   autocmd!
 
@@ -143,18 +129,18 @@ inoremap <S-Tab> <C-n>
 " Switch between the last two files
 nnoremap <Leader><Leader> <C-^>
 
-" Get off my lawn
-nnoremap <Left> :echoe "Use h"<CR>
-nnoremap <Right> :echoe "Use l"<CR>
-nnoremap <Up> :echoe "Use k"<CR>
-nnoremap <Down> :echoe "Use j"<CR>
-
 " Leader T to switch splits
 nnoremap <Leader>T <C-w>w
 
 " Leader H and L to go to start of line and end of line
 nnoremap <Leader>h ^
 nnoremap <Leader>l $
+
+" Get off my lawn
+nnoremap <Left> :echoe "Use h"<CR>
+nnoremap <Right> :echoe "Use l"<CR>
+nnoremap <Up> :echoe "Use k"<CR>
+nnoremap <Down> :echoe "Use j"<CR>
 
 " vim-test mappings
 nnoremap <silent> <Leader>t :TestFile<CR>
@@ -181,26 +167,12 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
-" Leader command for lines"
-nnoremap <leader>d dd
-
-" Leader select block"
-nnoremap <leader>a vip
-
-" Leader change line"
-nnoremap <leader>x Vc
-
 " Move between linting errors
 nnoremap ]r :ALENextWrap<CR>
 nnoremap [r :ALEPreviousWrap<CR>
 
 " Map Ctrl + p to open fuzzy find (FZF)
 nnoremap <c-p> :Files<cr>
-
-" Undo"
-nnoremap <leader>z u
-" Quit after saving"
-nnoremap <leader>q ZZ
 
 " Set spellfile to location that is guaranteed to exist, can be symlinked to
 " Dropbox or kept in Git and managed outside of thoughtbot/dotfiles using rcm.
@@ -216,3 +188,4 @@ set diffopt+=vertical
 if filereadable($HOME . "/.vimrc.local")
   source ~/.vimrc.local
 endif
+set ideajoin
